@@ -12,6 +12,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] DeathHandler deathHandler;
     [SerializeField] Slider healthSlider;
     Movement movement;
+    [SerializeField] AudioSource deathSound;
+    [SerializeField] AudioSource music;
     public Transform attackPoint;
     public float attackRange = .5f;
     public LayerMask enemyLayers;
@@ -78,6 +80,9 @@ public class PlayerCombat : MonoBehaviour
         movement.Stop();
         animator.SetTrigger("isDead");
         deathAnimator.SetTrigger("Death");
+        music.Stop();
+        deathSound.Play();
+        
         GetComponent<Collider2D>().enabled = false;
 
         StartCoroutine(deathWait(3f));
